@@ -3,6 +3,7 @@ using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -548,5 +549,39 @@ namespace Onyx3DEditor
             shader.Load("../../../../Onyx3D/Resources/Shaders/VertexShader.glsl", "../../../../Onyx3D/Resources/Shaders/FragmentShader.glsl");
             renderCanvas.Refresh();
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+
+			//SceneObject grid = new SceneObject("Grid");
+			//mGridRenderer = grid.AddComponent<GridRenderer>();
+			//mGridRenderer.GenerateGridMesh(100, 100, 0.25f, 0.25f, Vector3.One);
+			//mGridRenderer.Material = mOnyxInstance.Resources.GetMaterial(BuiltInMaterial.Unlit);
+			//mGridRenderer.Material.Properties["color"].Data = new Vector4(1, 1, 1, 0.1f);
+
+			//load csv into DT
+			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data.csv");
+			for (int i = 1; i < content.Length; i++)
+			{
+				string[] l = content[i].Split(',');
+				if (l.Length == 3)
+				{
+					float x = float.Parse(l[0]);
+					float y = float.Parse(l[1]);
+					float z = float.Parse(l[2]);
+					Vector3 pos = new Vector3(x, y, z);
+					int size = 1;
+					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Sphere", pos,false);
+		
+				}
+
+			}
+
+			//only update scene until finished
+			sceneHierarchy.UpdateScene();
+
+
+		}
     }
 }

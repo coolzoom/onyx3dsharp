@@ -279,7 +279,17 @@ namespace Onyx3D
             mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.Default);
             return primitive;
         }
+		// --------------------------------------------------------------------
 
+		public static SceneObject CreatePrimitive(int meshType, string name, Vector3 position)
+		{
+			SceneObject primitive = new SceneObject(name);
+			MeshRenderer mesh = primitive.AddComponent<MeshRenderer>();
+			mesh.Mesh = Onyx3DEngine.Instance.Resources.GetMesh(meshType);
+			primitive.Transform.LocalPosition = position;// new Vector3(0, 0, 0);
+			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.Default);
+			return primitive;
+		}
 		// --------------------------------------------------------------------
 
 		public virtual Bounds CalculateBounds()
