@@ -560,6 +560,7 @@ namespace Onyx3DEditor
 			//mGridRenderer.Material.Properties["color"].Data = new Vector4(1, 1, 1, 0.1f);
 
 			List<Vector3> lp = new List<Vector3> { };
+			List<Vector3> lpCorrect = new List<Vector3> { };
 			//load csv into DT
 			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data2.csv");
 			for (int i = 1; i < content.Length; i++)
@@ -571,8 +572,10 @@ namespace Onyx3DEditor
 					float y = float.Parse(l[1]);
 					float z = float.Parse(l[2]);
 					Vector3 pos = new Vector3(x, y, z);
+					Vector3 posCorrect = new Vector3(x, z * 100, y);
 					Vector3 sca = new Vector3(0.2f, 0.2f, 0.2f);
 					lp.Add(pos);
+					lpCorrect.Add(posCorrect);
 					int size = 2;
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
@@ -582,7 +585,7 @@ namespace Onyx3DEditor
 					Vector3 col = new Vector3(0, 1, 0);
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
-					EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), pos, 0.1f, col, up, 100);
+					EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
 				}
 
 			}
@@ -626,7 +629,7 @@ namespace Onyx3DEditor
 						spassfail = "Fail";
 						//+1 just for easier look
 						//add fail line
-						EditorSceneObjectUtils.AddLine("pin" + a.ToString() + "-pin" + b.ToString(), lp[a], lp[b], Color.Red.ToVector().Xyz);
+						EditorSceneObjectUtils.AddLine("pin" + a.ToString() + "-pin" + b.ToString(), lpCorrect[a], lpCorrect[b], Color.Red.ToVector().Xyz);
 					}
 					else
 					{
