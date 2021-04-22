@@ -106,6 +106,15 @@ namespace Onyx3DEditor
 
         // --------------------------------------------------------------------
 
+        public static void AddCircle(string name, Vector3 position, float radius, Vector3 color, Vector3 up, int segments, bool select = true)
+        {
+            SceneObject primitive = SceneObject.CreateCircle(name, position, radius, color, up, segments);
+            primitive.Parent = SceneManagement.ActiveScene.Root;
+            //if (select)
+            //    Selection.ActiveObject = primitive;
+        }
+        // --------------------------------------------------------------------
+
         public static void AddPrimitive(int meshType, string name, Vector3 position, Vector3 scale, bool select = true)
         {
             SceneObject primitive = SceneObject.CreatePrimitive(meshType, name, position, scale);

@@ -290,7 +290,12 @@ namespace Onyx3D
 			mesh.Mesh = Onyx3DEngine.Instance.Resources.GetMesh(meshType);
 			primitive.Transform.LocalPosition = position;// new Vector3(0, 0, 0);
 			primitive.Transform.LocalScale = scale;
-			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.Default);
+
+			//Dictionary<string, MaterialProperty> dic = new Dictionary<string, MaterialProperty> { };
+			//dic.Add("color", new MaterialProperty( MaterialPropertyType.Color, new Vector4(1, 1, 1, 1), 0 ));
+
+			//Material mat = new Material { Properties = dic, Shader = Onyx3DEngine.Instance.Resources.GetShader(BuiltInShader.UnlitVertexColor)};
+			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.Unlit) ;
 			return primitive;
 		}
 
@@ -302,6 +307,18 @@ namespace Onyx3D
 			LineRenderer myLine = primitive.AddComponent<LineRenderer>();
 			myLine.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.UnlitVertexColor);
 			myLine.GenerateLine(point1, point2, color);
+			return primitive;
+		}
+
+		// --------------------------------------------------------------------
+
+		public static SceneObject CreateCircle(string name, Vector3 position, float radius, Vector3 color, Vector3 up, int segments = 100)
+		{
+			SceneObject primitive = new SceneObject(name);
+			CircleRenderer myCircle = primitive.AddComponent<CircleRenderer>();
+			myCircle.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.UnlitVertexColor);
+			myCircle.GenerateCircle(radius, color, up, segments);
+			myCircle.Transform.LocalPosition = position;
 			return primitive;
 		}
 

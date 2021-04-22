@@ -643,5 +643,16 @@ namespace Onyx3DEditor
 			//only update scene until finished
 			sceneHierarchy.UpdateScene();
 		}
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+			Vector3 pos = new Vector3(1, 1, 1);
+			Vector3 up = new Vector3(0, 1, 0);
+			Vector3 col = new Vector3(1, 1, 1);
+			//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+
+			EditorSceneObjectUtils.AddCircle("circle",pos,1.0f, col, up, 100);
+			sceneHierarchy.UpdateScene();
+		}
     }
 }
