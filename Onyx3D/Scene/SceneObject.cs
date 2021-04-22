@@ -283,7 +283,7 @@ namespace Onyx3D
         }
 		// --------------------------------------------------------------------
 
-		public static SceneObject CreatePrimitive(int meshType, string name, Vector3 position, Vector3 scale)
+		public static SceneObject CreatePrimitive(int meshType, string name, Vector3 position, Vector3 scale, Vector4 color)
 		{
 			SceneObject primitive = new SceneObject(name);
 			MeshRenderer mesh = primitive.AddComponent<MeshRenderer>();
@@ -296,7 +296,7 @@ namespace Onyx3D
 
 			//Material mat = new Material { Properties = dic, Shader = Onyx3DEngine.Instance.Resources.GetShader(BuiltInShader.UnlitVertexColor)};
 			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.NotFound) ;
-			mesh.Material.Properties["color"].Data = new Vector4(1, 0, 0, 0.5f);
+			mesh.Material.Properties["color"].Data = color;// new Vector4(1, 0, 0, 0.5f);
 			return primitive;
 		}
 

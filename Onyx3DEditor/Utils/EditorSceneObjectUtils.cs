@@ -115,9 +115,9 @@ namespace Onyx3DEditor
         }
         // --------------------------------------------------------------------
 
-        public static void AddPrimitive(int meshType, string name, Vector3 position, Vector3 scale, bool select = true)
+        public static void AddPrimitive(int meshType, string name, Vector3 position, Vector3 scale, Vector4 color, bool select = true)
         {
-            SceneObject primitive = SceneObject.CreatePrimitive(meshType, name, position, scale);
+            SceneObject primitive = SceneObject.CreatePrimitive(meshType, name, position, scale, color);
             primitive.Parent = SceneManagement.ActiveScene.Root;
             if (select)
                 Selection.ActiveObject = primitive;

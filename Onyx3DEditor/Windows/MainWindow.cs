@@ -562,7 +562,7 @@ namespace Onyx3DEditor
 			List<Vector3> lp = new List<Vector3> { };
 			List<Vector3> lpCorrect = new List<Vector3> { };
 			//load csv into DT
-			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data3.csv");
+			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data2.csv");
 			for (int i = 1; i < content.Length; i++)
 			{
 				string[] l = content[i].Split(',');
@@ -573,7 +573,7 @@ namespace Onyx3DEditor
 					float z = float.Parse(l[2]);
 					Vector3 pos = new Vector3(x, y, z);
 					Vector3 posCorrect = new Vector3(x, z * 100, y);
-					Vector3 sca = new Vector3(0.2f, 0.2f, 0.2f);
+					Vector3 sca = new Vector3(0.5f, 0.5f, 0.5f);
 					lp.Add(pos);
 					lpCorrect.Add(posCorrect);
 					int size = 2;
@@ -583,10 +583,11 @@ namespace Onyx3DEditor
 					
 					Vector3 up = new Vector3(0, 0, 1);
 					Vector3 col = new Vector3(0, 1, 0);
+					Vector4 color = new Vector4(0, 1, 0,0.5f); //transparency
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
 					//EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
-					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), posCorrect, sca, false);
+					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), posCorrect, sca, color, false);
 				}
 
 			}
