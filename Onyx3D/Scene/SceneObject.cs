@@ -295,7 +295,8 @@ namespace Onyx3D
 			//dic.Add("color", new MaterialProperty( MaterialPropertyType.Color, new Vector4(1, 1, 1, 1), 0 ));
 
 			//Material mat = new Material { Properties = dic, Shader = Onyx3DEngine.Instance.Resources.GetShader(BuiltInShader.UnlitVertexColor)};
-			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.Default) ;
+			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.NotFound) ;
+			mesh.Material.Properties["color"].Data = new Vector4(1, 0, 0, 0.5f);
 			return primitive;
 		}
 
