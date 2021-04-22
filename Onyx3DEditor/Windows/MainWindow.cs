@@ -575,9 +575,14 @@ namespace Onyx3DEditor
 					lp.Add(pos);
 					int size = 2;
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+
+					//EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), pos, sca, false);
 					
-					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), pos, sca, false);
-		
+					Vector3 up = new Vector3(0, 0, 1);
+					Vector3 col = new Vector3(0, 1, 0);
+					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+
+					EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), pos, 0.1f, col, up, 100);
 				}
 
 			}
@@ -621,7 +626,7 @@ namespace Onyx3DEditor
 						spassfail = "Fail";
 						//+1 just for easier look
 						//add fail line
-						EditorSceneObjectUtils.AddLine("line", lp[a], lp[b], Color.Red.ToVector().Xyz);
+						EditorSceneObjectUtils.AddLine("pin" + a.ToString() + "-pin" + b.ToString(), lp[a], lp[b], Color.Red.ToVector().Xyz);
 					}
 					else
 					{
@@ -647,11 +652,11 @@ namespace Onyx3DEditor
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
 			Vector3 pos = new Vector3(1, 1, 1);
-			Vector3 up = new Vector3(0, 1, 0);
-			Vector3 col = new Vector3(1, 1, 1);
+			Vector3 up = new Vector3(0, 0, 1);
+			Vector3 col = new Vector3(0, 1, 0);
 			//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
-			EditorSceneObjectUtils.AddCircle("circle",pos,1.0f, col, up, 100);
+			EditorSceneObjectUtils.AddCircle("circle",pos,0.1f, col, up, 100);
 			sceneHierarchy.UpdateScene();
 		}
     }
