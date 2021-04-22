@@ -2,6 +2,7 @@
 using OpenTK;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -290,6 +291,18 @@ namespace Onyx3D
 			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.Default);
 			return primitive;
 		}
+
+		// --------------------------------------------------------------------
+
+		public static SceneObject CreateLine(string name, Vector3 point1, Vector3 point2, Vector3 color)
+		{
+			SceneObject primitive = new SceneObject(name);
+			LineRenderer myLine = primitive.AddComponent<LineRenderer>();
+			myLine.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.UnlitVertexColor);
+			myLine.GenerateLine(point1, point2, color);
+			return primitive;
+		}
+
 		// --------------------------------------------------------------------
 
 		public virtual Bounds CalculateBounds()

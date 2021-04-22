@@ -560,7 +560,7 @@ namespace Onyx3DEditor
 			//mGridRenderer.Material.Properties["color"].Data = new Vector4(1, 1, 1, 0.1f);
 
 			//load csv into DT
-			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data.csv");
+			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data2.csv");
 			for (int i = 1; i < content.Length; i++)
 			{
 				string[] l = content[i].Split(',');
@@ -568,7 +568,7 @@ namespace Onyx3DEditor
 				{
 					float x = float.Parse(l[0]);
 					float y = float.Parse(l[1]);
-					float z = float.Parse(l[2]);
+					float z = float.Parse(l[2])*100;
 					Vector3 pos = new Vector3(x, y, z);
 					int size = 1;
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
@@ -577,11 +577,18 @@ namespace Onyx3DEditor
 				}
 
 			}
-
+			
 			//only update scene until finished
 			sceneHierarchy.UpdateScene();
 
 
+		}
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+			EditorSceneObjectUtils.AddLine("line", new Vector3(0,0,0), new Vector3(1, 1, 1), Color.White.ToVector().Xyz);
+			//only update scene until finished
+			sceneHierarchy.UpdateScene();
 		}
     }
 }

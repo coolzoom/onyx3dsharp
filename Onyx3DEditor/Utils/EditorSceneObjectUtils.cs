@@ -94,6 +94,15 @@ namespace Onyx3DEditor
             if (select)
                 Selection.ActiveObject = primitive;
         }
+        // --------------------------------------------------------------------
+
+        public static void AddLine(string name, Vector3 point1, Vector3 point2, Vector3 color, bool select = true)
+        {
+            SceneObject primitive = SceneObject.CreateLine(name, point1, point2, color);
+            primitive.Parent = SceneManagement.ActiveScene.Root;
+            //if (select)
+            //    Selection.ActiveObject = primitive;
+        }
 
         // --------------------------------------------------------------------
 

@@ -113,6 +113,7 @@ namespace Onyx3DEditor
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripCreateCamera = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.selectedObjectInspector = new Onyx3DEditor.SelectedObjectInspector();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonTextureManager = new System.Windows.Forms.ToolStripButton();
@@ -499,7 +500,8 @@ namespace Onyx3DEditor
             this.toolStripCreateEntity,
             this.toolStripSeparator6,
             this.toolStripCreateCamera,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(810, 27);
@@ -662,6 +664,16 @@ namespace Onyx3DEditor
             this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // selectedObjectInspector
             // 
@@ -829,5 +841,6 @@ namespace Onyx3DEditor
 		private ToolStripMenuItem updateMaterialAttributesToolStripMenuItem;
         private ToolStripMenuItem reloadDefaultShaderToolStripMenuItem;
         private ToolStripButton toolStripButton1;
+        private ToolStripButton toolStripButton2;
     }
 }
