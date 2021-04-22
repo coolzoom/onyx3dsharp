@@ -97,6 +97,11 @@ namespace Onyx3D
 		public override bool IntersectsRay(Ray ray, out RaycastHit hit)
 		{
 			hit = new RaycastHit();
+			if (Mesh.Indices == null)
+			{
+				//some mesh doesnt have indices, like lines or points etc
+				return false;
+			}
 			for (int i = 0; i < Mesh.Indices.Length; i += 3)
 			{
 				Vector3 a = Mesh.Vertices[Mesh.Indices[i]].Position;
