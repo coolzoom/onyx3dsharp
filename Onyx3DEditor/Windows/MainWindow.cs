@@ -561,7 +561,7 @@ namespace Onyx3DEditor
 
 			List<Vector3> lp = new List<Vector3> { };
 			//load csv into DT
-			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data3.csv");
+			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data2.csv");
 			for (int i = 1; i < content.Length; i++)
 			{
 				string[] l = content[i].Split(',');
@@ -586,19 +586,16 @@ namespace Onyx3DEditor
 			bool bCheckSfactor = true;
 			double dH12 = 0.015;
 			double dSFactor = 0.003;
+			string spassfail = "Pass";
 			for (int a = 0; a < lp.Count; a++)
 			{
 				for (int b = a + 1; b < lp.Count; b++)
 				{
-					string passfail = "Pass";
+					
 					float Distance = (float)Math.Sqrt(Math.Pow(lp[b].X - lp[a].X, 2.0) + Math.Pow(lp[b].Y - lp[a].Y, 2.0));
 					float H12 = lp[b].Z- lp[a].Z;
 					float Sfactor = (Distance == 0 && H12 == 0) ? 0 : H12 / Distance;
-
-
 					bool isfail = false;
-
-					
 
 					//if both checked, fail when h12>h12 max and sfactor > sfactor limit
 					if (bCheckH12 && bCheckSfactor)
@@ -619,14 +616,14 @@ namespace Onyx3DEditor
 					if (isfail)
 					{
 						failcount += 1;
-						passfail = "Fail";
+						spassfail = "Fail";
 						//+1 just for easier look
 						//add fail line
 						EditorSceneObjectUtils.AddLine("line", lp[a], lp[b], Color.Red.ToVector().Xyz);
 					}
 					else
 					{
-						passfail = "Pass";
+						spassfail = "Pass";
 					}
 				}
 			}

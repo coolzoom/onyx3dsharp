@@ -449,7 +449,7 @@ namespace Onyx3DEditor
             this.splitContainer2.Panel2.Controls.Add(this.selectedObjectInspector);
             this.splitContainer2.Panel2MinSize = 100;
             this.splitContainer2.Size = new System.Drawing.Size(1060, 602);
-            this.splitContainer2.SplitterDistance = 810;
+            this.splitContainer2.SplitterDistance = 700;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 3;
             // 
@@ -458,7 +458,7 @@ namespace Onyx3DEditor
             this.renderInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.renderInfoLabel.BackColor = System.Drawing.Color.Transparent;
             this.renderInfoLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.renderInfoLabel.Location = new System.Drawing.Point(671, 40);
+            this.renderInfoLabel.Location = new System.Drawing.Point(561, 40);
             this.renderInfoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.renderInfoLabel.Name = "renderInfoLabel";
             this.renderInfoLabel.Size = new System.Drawing.Size(132, 20);
@@ -504,7 +504,7 @@ namespace Onyx3DEditor
             this.toolStripButton2});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(810, 27);
+            this.toolStrip2.Size = new System.Drawing.Size(700, 27);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -685,7 +685,7 @@ namespace Onyx3DEditor
             this.selectedObjectInspector.Location = new System.Drawing.Point(0, 0);
             this.selectedObjectInspector.Margin = new System.Windows.Forms.Padding(4, 3, 8, 3);
             this.selectedObjectInspector.Name = "selectedObjectInspector";
-            this.selectedObjectInspector.Size = new System.Drawing.Size(249, 602);
+            this.selectedObjectInspector.Size = new System.Drawing.Size(359, 602);
             this.selectedObjectInspector.TabIndex = 0;
             // 
             // toolStrip3
