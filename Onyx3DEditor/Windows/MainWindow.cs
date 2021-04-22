@@ -562,7 +562,7 @@ namespace Onyx3DEditor
 			List<Vector3> lp = new List<Vector3> { };
 			List<Vector3> lpCorrect = new List<Vector3> { };
 			//load csv into DT
-			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data2.csv");
+			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data3.csv");
 			for (int i = 1; i < content.Length; i++)
 			{
 				string[] l = content[i].Split(',');
@@ -579,13 +579,14 @@ namespace Onyx3DEditor
 					int size = 2;
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
-					//EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), pos, sca, false);
+					
 					
 					Vector3 up = new Vector3(0, 0, 1);
 					Vector3 col = new Vector3(0, 1, 0);
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
-					EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
+					//EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
+					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), posCorrect, sca, false);
 				}
 
 			}
