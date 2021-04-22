@@ -559,8 +559,9 @@ namespace Onyx3DEditor
 			//mGridRenderer.Material = mOnyxInstance.Resources.GetMaterial(BuiltInMaterial.Unlit);
 			//mGridRenderer.Material.Properties["color"].Data = new Vector4(1, 1, 1, 0.1f);
 
+			List<Vector3> lp = new List<Vector3> { };
 			//load csv into DT
-			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data2.csv");
+			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data3.csv");
 			for (int i = 1; i < content.Length; i++)
 			{
 				string[] l = content[i].Split(',');
@@ -568,33 +569,68 @@ namespace Onyx3DEditor
 				{
 					float x = float.Parse(l[0]);
 					float y = float.Parse(l[1]);
-					float z = float.Parse(l[2])*100;
+					float z = float.Parse(l[2]);
 					Vector3 pos = new Vector3(x, y, z);
-					int size = 1;
+					lp.Add(pos);
+					
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
-					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Sphere", pos,false);
+					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), pos,false);
 		
 				}
 
 			}
-			//load csv into DT
-			string[] content2 = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data3.csv");
-			for (int i = 1; i < content2.Length; i++)
+
+			//check 
+			int failcount = 0;
+			bool bCheckH12 = true;
+			bool bCheckSfactor = true;
+			double dH12 = 0.015;
+			double dSFactor = 0.003;
+			for (int a = 0; a < lp.Count; a++)
 			{
-				string[] l = content2[i].Split(',');
-				if (l.Length == 3)
+				for (int b = a + 1; b < lp.Count; b++)
 				{
-					float x = float.Parse(l[0]);
-					float y = float.Parse(l[1]);
-					float z = float.Parse(l[2]) * 100;
-					Vector3 pos = new Vector3(x, y, z);
-					int size = 1;
-					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
-					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Sphere", pos, false);
+					string passfail = "Pass";
+					float Distance = (float)Math.Sqrt(Math.Pow(lp[b].X - lp[a].X, 2.0) + Math.Pow(lp[b].Y - lp[a].Y, 2.0));
+					float H12 = lp[b].Z- lp[a].Z;
+					float Sfactor = (Distance == 0 && H12 == 0) ? 0 : H12 / Distance;
 
+
+					bool isfail = false;
+
+					
+
+					//if both checked, fail when h12>h12 max and sfactor > sfactor limit
+					if (bCheckH12 && bCheckSfactor)
+					{
+						isfail = (Math.Abs(H12) > dH12) && (Sfactor > dSFactor);
+					}
+					//if only h12 checked,  fail when h12>h12 limit
+					if (bCheckH12 && !bCheckSfactor)
+					{
+						isfail = (Math.Abs(H12) > dH12);
+					}
+					//if only sfactor checked,  fail when sfactor > sfactor limit
+					if (!bCheckH12 && (bool)bCheckSfactor)
+					{
+						isfail = (Sfactor > dSFactor);
+					}
+
+					if (isfail)
+					{
+						failcount += 1;
+						passfail = "Fail";
+						//+1 just for easier look
+						//add fail line
+						EditorSceneObjectUtils.AddLine("line", lp[a], lp[b], Color.Red.ToVector().Xyz);
+					}
+					else
+					{
+						passfail = "Pass";
+					}
 				}
-
 			}
+
 			//only update scene until finished
 			sceneHierarchy.UpdateScene();
 
