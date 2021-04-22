@@ -586,7 +586,8 @@ namespace Onyx3DEditor
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-			EditorSceneObjectUtils.AddLine("line", new Vector3(0,0,0), new Vector3(1, 1, 1), Color.White.ToVector().Xyz);
+			//EditorSceneObjectUtils.AddLine("line", new Vector3(0,0,0), new Vector3(1, 1, 1), Color.White.ToVector().Xyz);
+			EditorSceneObjectUtils.AddLine("line", new Vector3(0, 0, 0), new Vector3(1, 1, 1), Color.Red.ToVector().Xyz);
 			//only update scene until finished
 			sceneHierarchy.UpdateScene();
 		}
