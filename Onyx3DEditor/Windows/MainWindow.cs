@@ -577,7 +577,24 @@ namespace Onyx3DEditor
 				}
 
 			}
-			
+			//load csv into DT
+			string[] content2 = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data3.csv");
+			for (int i = 1; i < content2.Length; i++)
+			{
+				string[] l = content2[i].Split(',');
+				if (l.Length == 3)
+				{
+					float x = float.Parse(l[0]);
+					float y = float.Parse(l[1]);
+					float z = float.Parse(l[2]) * 100;
+					Vector3 pos = new Vector3(x, y, z);
+					int size = 1;
+					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Sphere", pos, false);
+
+				}
+
+			}
 			//only update scene until finished
 			sceneHierarchy.UpdateScene();
 
