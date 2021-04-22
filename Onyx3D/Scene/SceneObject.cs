@@ -1,5 +1,6 @@
 ﻿
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -282,12 +283,13 @@ namespace Onyx3D
         }
 		// --------------------------------------------------------------------
 
-		public static SceneObject CreatePrimitive(int meshType, string name, Vector3 position)
+		public static SceneObject CreatePrimitive(int meshType, string name, Vector3 position, Vector3 scale)
 		{
 			SceneObject primitive = new SceneObject(name);
 			MeshRenderer mesh = primitive.AddComponent<MeshRenderer>();
 			mesh.Mesh = Onyx3DEngine.Instance.Resources.GetMesh(meshType);
 			primitive.Transform.LocalPosition = position;// new Vector3(0, 0, 0);
+			primitive.Transform.LocalScale = scale;
 			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.Default);
 			return primitive;
 		}

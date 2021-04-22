@@ -106,9 +106,9 @@ namespace Onyx3DEditor
 
         // --------------------------------------------------------------------
 
-        public static void AddPrimitive(int meshType, string name, Vector3 position, bool select = true)
+        public static void AddPrimitive(int meshType, string name, Vector3 position, Vector3 scale, bool select = true)
         {
-            SceneObject primitive = SceneObject.CreatePrimitive(meshType, name, position);
+            SceneObject primitive = SceneObject.CreatePrimitive(meshType, name, position, scale);
             primitive.Parent = SceneManagement.ActiveScene.Root;
             if (select)
                 Selection.ActiveObject = primitive;
@@ -133,8 +133,8 @@ namespace Onyx3DEditor
             obj.Transform.LocalPosition = position; new Vector3(0, 0, 0);
             ReflectionProbe mReflectionProbe = obj.AddComponent<ReflectionProbe>();
             mReflectionProbe.Init(size); //64
-            if (select)
-                Selection.ActiveObject = obj;
+            //if (select)
+            //    Selection.ActiveObject = obj;
         }
         // --------------------------------------------------------------------
 

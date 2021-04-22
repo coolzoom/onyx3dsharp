@@ -571,10 +571,12 @@ namespace Onyx3DEditor
 					float y = float.Parse(l[1]);
 					float z = float.Parse(l[2]);
 					Vector3 pos = new Vector3(x, y, z);
+					Vector3 sca = new Vector3(0.2f, 0.2f, 0.2f);
 					lp.Add(pos);
-					
+					int size = 2;
 					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
-					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), pos,false);
+					
+					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), pos, sca, false);
 		
 				}
 
