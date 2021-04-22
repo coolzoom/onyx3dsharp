@@ -561,6 +561,10 @@ namespace Onyx3DEditor
 
 			List<Vector3> lp = new List<Vector3> { };
 			List<Vector3> lpCorrect = new List<Vector3> { };
+			float maxz = -9999;
+			float minz = 9999;
+			float zscale = 100;
+
 			//load csv into DT
 			string[] content = File.ReadAllLines("C:\\Users\\Administrator\\Desktop\\data2.csv");
 			for (int i = 1; i < content.Length; i++)
@@ -571,25 +575,44 @@ namespace Onyx3DEditor
 					float x = float.Parse(l[0]);
 					float y = float.Parse(l[1]);
 					float z = float.Parse(l[2]);
+
+					if (z < minz)
+					{
+						minz = z;
+					}
+					if (z > maxz )
+					{
+						maxz = z;
+					}
 					Vector3 pos = new Vector3(x, y, z);
-					Vector3 posCorrect = new Vector3(x, z * 100, y);
-					Vector3 sca = new Vector3(0.5f, 0.5f, 0.5f);
+					Vector3 posCorrect = new Vector3(x, z * zscale, y);
 					lp.Add(pos);
 					lpCorrect.Add(posCorrect);
-					int size = 2;
-					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
-
-					
-					
-					Vector3 up = new Vector3(0, 0, 1);
-					Vector3 col = new Vector3(0, 1, 0);
-					Vector4 color = new Vector4(0, 1, 0,0.5f); //transparency
-					//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
-
-					//EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
-					EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + i.ToString(), posCorrect, sca, color, false);
 				}
 
+			}
+
+
+			//list points
+
+			float colorfactor = (maxz - minz) ;
+
+			for (int a = 0; a < lp.Count; a++)
+			{
+				Vector3 pos = lp[a];
+				Vector3 posCorrect = new Vector3(pos.X, pos.Z * 100, pos.Y);
+				Vector3 sca = new Vector3(0.5f, 0.5f, 0.5f);
+				int size = 2;
+				//EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+
+				Vector3 up = new Vector3(0, 0, 1);
+				Vector3 col = new Vector3(0, 1, 0);
+				float colorvalue = (pos.Z - minz) / (maxz - minz);
+				Vector4 color = new Vector4(0f, 1f, colorvalue, 1f); //transparency
+																			   //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+
+				//EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
+				EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + a.ToString(), posCorrect, sca, color, false);
 			}
 
 			//check 
