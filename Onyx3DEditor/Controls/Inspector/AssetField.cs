@@ -29,8 +29,11 @@ namespace Onyx3DEditor.Controls.Inspector
 			mAsset = asset;
 			mSelectorType = typeof(T);
 			assetNameLabel.Text = labelName;
-			assetRefField.Text = asset.LinkedProjectAsset.Name != null ? asset.LinkedProjectAsset.Name : asset.LinkedProjectAsset.Guid.ToString();
-		}
+            if (asset.LinkedProjectAsset!=null)
+            {
+                assetRefField.Text = asset.LinkedProjectAsset.Name != null ? asset.LinkedProjectAsset.Name : asset.LinkedProjectAsset.Guid.ToString();
+            }
+        }
 
 		private void buttonSearch_Click(object sender, EventArgs e)
 		{

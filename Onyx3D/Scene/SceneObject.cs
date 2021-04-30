@@ -291,12 +291,17 @@ namespace Onyx3D
 			primitive.Transform.LocalPosition = position;// new Vector3(0, 0, 0);
 			primitive.Transform.LocalScale = scale;
 
-			//Dictionary<string, MaterialProperty> dic = new Dictionary<string, MaterialProperty> { };
-			//dic.Add("color", new MaterialProperty( MaterialPropertyType.Color, new Vector4(1, 1, 1, 1), 0 ));
+            //Dictionary<string, MaterialProperty> dic = new Dictionary<string, MaterialProperty> { };
+            //dic.Add("color", new MaterialProperty( MaterialPropertyType.Color, new Vector4(1, 1, 1, 1), 0 ));
 
-			//Material mat = new Material { Properties = dic, Shader = Onyx3DEngine.Instance.Resources.GetShader(BuiltInShader.UnlitVertexColor)};
-			mesh.Material = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.NotFound) ;
-			mesh.Material.Properties["color"].Data = color;// new Vector4(1, 0, 0, 0.5f);
+            //Material mat = new Material { Properties = dic, Shader = Onyx3DEngine.Instance.Resources.GetShader(BuiltInShader.UnlitVertexColor)};
+            Material mt = Onyx3DEngine.Instance.Resources.GetMaterial(BuiltInMaterial.NotFound);
+            Material mtclone = new Material();
+            mtclone.Shader = mt.Shader;
+            //mtclone.Properties = mt.Properties.Clone;
+            mtclone.Properties.Add("color", new MaterialProperty(MaterialPropertyType.Color, color,1));
+            mesh.Material = mtclone;
+			//mesh.Material.Properties["color"].Data = color;// new Vector4(1, 0, 0, 0.5f);
 			return primitive;
 		}
 
