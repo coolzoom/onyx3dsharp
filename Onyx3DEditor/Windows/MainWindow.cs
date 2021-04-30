@@ -61,7 +61,8 @@ namespace Onyx3DEditor
 			mGridRenderer.Material.Properties["color"].Data = new Vector4(1, 1, 1, 0.1f);
 
 			UpdateFormTitle();
-		}
+            
+        }
 
 		// --------------------------------------------------------------------
 
@@ -204,7 +205,8 @@ namespace Onyx3DEditor
 			mCanDraw = true;
 
 			RenderScene();
-		}
+            renderCanvas.Refresh();
+        }
 
 		private void renderCanvas_Paint(object sender, PaintEventArgs e)
 		{
@@ -546,7 +548,9 @@ namespace Onyx3DEditor
         {
             
             Shader shader = mOnyxInstance.Resources.GetShader(BuiltInShader.Default);
-            shader.Load("../../../../Onyx3D/Resources/Shaders/VertexShader.glsl", "../../../../Onyx3D/Resources/Shaders/FragmentShader.glsl");
+            String vs = "../../../../Onyx3D/Resources/Shaders/VertexShader.glsl";
+            String fs = "../../../../Onyx3D/Resources/Shaders/FragmentShader.glsl";
+            shader.Load(vs,fs);
             renderCanvas.Refresh();
         }
 
@@ -666,8 +670,8 @@ namespace Onyx3DEditor
 			//only update scene until finished
 			sceneHierarchy.UpdateScene();
 
-
-		}
+            renderCanvas.Refresh();
+        }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
@@ -687,5 +691,7 @@ namespace Onyx3DEditor
 			EditorSceneObjectUtils.AddCircle("circle",pos,0.1f, col, up, 100);
 			sceneHierarchy.UpdateScene();
 		}
+
+
     }
 }
