@@ -548,8 +548,8 @@ namespace Onyx3DEditor
         {
             
             Shader shader = mOnyxInstance.Resources.GetShader(BuiltInShader.Default);
-            String vs = "../../../../Onyx3D/Resources/Shaders/VertexShader.glsl";
-            String fs = "../../../../Onyx3D/Resources/Shaders/FragmentShader.glsl";
+            String vs = Path.Combine(Application.StartupPath, "Resources/Shaders/VertexShader.glsl");
+            String fs = Path.Combine(Application.StartupPath, "Resources/Shaders/FragmentShader.glsl");
             shader.Load(vs,fs);
             renderCanvas.Refresh();
         }
@@ -612,7 +612,7 @@ namespace Onyx3DEditor
 				Vector3 up = new Vector3(0, 0, 1);
 				Vector3 col = new Vector3(0, 1, 0);
 				float colorvalue = (pos.Z - minz) / (maxz - minz);
-				Vector4 color = new Vector4(0f, 1f, colorvalue, 1f); //transparency
+				Vector4 color = new Vector4(0.3f, 0.3f, colorvalue, 1f); //transparency
 																			   //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
 				//EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
