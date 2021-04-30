@@ -612,7 +612,7 @@ namespace Onyx3DEditor
 				Vector3 up = new Vector3(0, 0, 1);
 				Vector3 col = new Vector3(0, 1, 0);
 				float colorvalue = (pos.Z - minz) / (maxz - minz);
-				Vector4 color = new Vector4(0.3f, 0.3f, colorvalue, 1f); //transparency
+				Vector4 color = new Vector4(0.3f, 0.3f, colorvalue, 0.6f); //transparency
 																			   //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
 				//EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
