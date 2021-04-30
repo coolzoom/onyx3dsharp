@@ -612,11 +612,17 @@ namespace Onyx3DEditor
 				Vector3 up = new Vector3(0, 0, 1);
 				Vector3 col = new Vector3(0, 1, 0);
 				float colorvalue = (pos.Z - minz) / (maxz - minz);
-				Vector4 color = new Vector4(0.3f, 0.3f, colorvalue, 0.6f); //transparency
-																			   //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
 
-				//EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
-				EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + a.ToString(), posCorrect, sca, color, false);
+                //the material shader color is from 0 to 1 but our conversion is using 0 to 200
+                //so we need to convert the range back and force
+				Vector4 color = HlsToRgb( new Vector4(colorvalue * 255, 0.5f * 255, 0.5f * 255, 1 * 255)); //transparency
+                                                                                                              //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+                color.X = color.X / 255;
+                color.Y = color.Y / 255;
+                color.Z = color.Z / 255;
+                color.W = color.W / 255;
+                //EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
+                EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + a.ToString(), posCorrect, sca, color, false);
 			}
 
 			//check 
@@ -692,6 +698,126 @@ namespace Onyx3DEditor
 			sceneHierarchy.UpdateScene();
 		}
 
+        #region "hslrgbconvert"
+        //http://csharphelper.com/blog/2016/08/convert-between-rgb-and-hls-color-models-in-c/
+        // Convert an RGB value into an HLS value.
+        public static void RgbToHls(int r, int g, int b,
+            out double h, out double l, out double s)
+        {
+            // Convert RGB to a 0.0 to 1.0 range.
+            double double_r = r / 255.0;
+            double double_g = g / 255.0;
+            double double_b = b / 255.0;
+
+            // Get the maximum and minimum RGB components.
+            double max = double_r;
+            if (max < double_g) max = double_g;
+            if (max < double_b) max = double_b;
+
+            double min = double_r;
+            if (min > double_g) min = double_g;
+            if (min > double_b) min = double_b;
+
+            double diff = max - min;
+            l = (max + min) / 2;
+            if (Math.Abs(diff) < 0.00001)
+            {
+                s = 0;
+                h = 0;  // H is really undefined.
+            }
+            else
+            {
+                if (l <= 0.5) s = diff / (max + min);
+                else s = diff / (2 - max - min);
+
+                double r_dist = (max - double_r) / diff;
+                double g_dist = (max - double_g) / diff;
+                double b_dist = (max - double_b) / diff;
+
+                if (double_r == max) h = b_dist - g_dist;
+                else if (double_g == max) h = 2 + r_dist - b_dist;
+                else h = 4 + g_dist - r_dist;
+
+                h = h * 60;
+                if (h < 0) h += 360;
+            }
+        }
+
+        // Convert an HLS value into an RGB value.
+        public static OpenTK.Vector4 HlsToRgb(OpenTK.Vector4 hls)
+        {
+            double h = hls.X;
+            double l = hls.Y;
+            double s = hls.Z;
+
+            double p2;
+            if (l <= 0.5) p2 = l * (1 + s);
+            else p2 = l + s - l * s;
+
+            double p1 = 2 * l - p2;
+            double double_r, double_g, double_b;
+            if (s == 0)
+            {
+                double_r = l;
+                double_g = l;
+                double_b = l;
+            }
+            else
+            {
+                double_r = QqhToRgb(p1, p2, h + 120);
+                double_g = QqhToRgb(p1, p2, h);
+                double_b = QqhToRgb(p1, p2, h - 120);
+            }
+
+            OpenTK.Vector4 rgb = new Vector4();
+            // Convert RGB to the 0 to 255 range.
+            rgb.X = (int)(double_r * 255.0);
+            rgb.Y = (int)(double_g * 255.0);
+            rgb.Z = (int)(double_b * 255.0);
+            rgb.W = hls.W;
+            return rgb;
+        }
+
+        // Convert an HLS value into an RGB value.
+        public static void HlsToRgb(double h, double l, double s,
+            out int r, out int g, out int b)
+        {
+            double p2;
+            if (l <= 0.5) p2 = l * (1 + s);
+            else p2 = l + s - l * s;
+
+            double p1 = 2 * l - p2;
+            double double_r, double_g, double_b;
+            if (s == 0)
+            {
+                double_r = l;
+                double_g = l;
+                double_b = l;
+            }
+            else
+            {
+                double_r = QqhToRgb(p1, p2, h + 120);
+                double_g = QqhToRgb(p1, p2, h);
+                double_b = QqhToRgb(p1, p2, h - 120);
+            }
+
+            // Convert RGB to the 0 to 255 range.
+            r = (int)(double_r * 255.0);
+            g = (int)(double_g * 255.0);
+            b = (int)(double_b * 255.0);
+        }
+
+        private static double QqhToRgb(double q1, double q2, double hue)
+        {
+            if (hue > 360) hue -= 360;
+            else if (hue < 0) hue += 360;
+
+            if (hue < 60) return q1 + (q2 - q1) * hue / 60;
+            if (hue < 180) return q2;
+            if (hue < 240) return q1 + (q2 - q1) * (240 - hue) / 60;
+            return q1;
+        }
+        #endregion
 
     }
 }
