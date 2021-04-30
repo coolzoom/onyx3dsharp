@@ -300,6 +300,8 @@ namespace Onyx3D
             mtclone.Shader = mt.Shader;
             //mtclone.Properties = mt.Properties.Clone;
             mtclone.Properties.Add("color", new MaterialProperty(MaterialPropertyType.Color, color,1));
+
+            mtclone.IsDynamic = true;//means we are not using asset
             mesh.Material = mtclone;
 			//mesh.Material.Properties["color"].Data = color;// new Vector4(1, 0, 0, 0.5f);
 			return primitive;

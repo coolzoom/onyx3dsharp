@@ -33,6 +33,10 @@ namespace Onyx3DEditor.Controls.Inspector
             {
                 assetRefField.Text = asset.LinkedProjectAsset.Name != null ? asset.LinkedProjectAsset.Name : asset.LinkedProjectAsset.Guid.ToString();
             }
+            if (asset.IsDynamic)
+            {
+                assetRefField.Text = "Dynamic Generated Material";
+            }
         }
 
 		private void buttonSearch_Click(object sender, EventArgs e)

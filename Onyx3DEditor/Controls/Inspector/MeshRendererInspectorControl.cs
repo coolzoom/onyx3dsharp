@@ -34,8 +34,19 @@ namespace Onyx3DEditor.Controls.Inspector
 				mPreview = new SingleMeshPreviewRenderer();
 				mPreview.Init(materialPreviewPictureBox.Width, materialPreviewPictureBox.Height, this.Handle);
 			}
-			mPreview.SetMaterial(mRenderer.Material.LinkedProjectAsset.Guid);
-			mPreview.Render();
+
+            if (mRenderer.Material.LinkedProjectAsset!=null)
+            {
+                //linked material
+                mPreview.SetMaterial(mRenderer.Material.LinkedProjectAsset.Guid);
+            }
+
+            //dynamic material color?
+            if (mRenderer.Material.IsDynamic)
+            {
+            }
+
+            mPreview.Render();
 
 			materialPreviewPictureBox.Image = mPreview.AsBitmap();
 		}
