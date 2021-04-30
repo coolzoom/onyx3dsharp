@@ -613,14 +613,15 @@ namespace Onyx3DEditor
 				Vector3 col = new Vector3(0, 1, 0);
 				float colorvalue = (pos.Z - minz) / (maxz - minz);
 
-                //the material shader color is from 0 to 1 but our conversion is using 0 to 200
+                //the material shader color is from 0 to 1 but our conversion H is using 0 to 255
                 //so we need to convert the range back and force
-				Vector4 color = HlsToRgb( new Vector4(colorvalue * 255, 0.5f * 255, 0.5f * 255, 1 * 255)); //transparency
+                //but remeber our l and s are from 0 to 1
+				Vector4 color = HlsToRgb( new Vector4(colorvalue * 255, 0.5f, 0.9f, 0.9f)); //transparency
                                                                                                               //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
                 color.X = color.X / 255;
                 color.Y = color.Y / 255;
                 color.Z = color.Z / 255;
-                color.W = color.W / 255;
+                
                 //EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
                 EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + a.ToString(), posCorrect, sca, color, false);
 			}
@@ -817,6 +818,7 @@ namespace Onyx3DEditor
             if (hue < 240) return q1 + (q2 - q1) * (240 - hue) / 60;
             return q1;
         }
+
         #endregion
 
     }
