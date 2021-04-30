@@ -39,16 +39,22 @@ namespace Onyx3DEditor.Controls.Inspector
             {
                 //linked material
                 mPreview.SetMaterial(mRenderer.Material.LinkedProjectAsset.Guid);
+
+                mPreview.Render();
+
+                materialPreviewPictureBox.Image = mPreview.AsBitmap();
             }
 
             //dynamic material color?
             if (mRenderer.Material.IsDynamic)
             {
+                //get a dynamic color image?
+                MaterialProperty mt =(MaterialProperty)mRenderer.Material.Properties["color"];
+                OpenTK.Vector4 vc = (OpenTK.Vector4)mt.Data;
+                
+                materialPreviewPictureBox.BackColor = System.Drawing.Color.FromArgb(Convert.ToInt16(vc.W*255), Convert.ToInt16(vc.X * 255), Convert.ToInt16(vc.Y * 255), Convert.ToInt16(vc.Z * 255));
             }
 
-            mPreview.Render();
-
-			materialPreviewPictureBox.Image = mPreview.AsBitmap();
 		}
 
 		private void OnMaterialSelected(object sender, EventArgs e)
