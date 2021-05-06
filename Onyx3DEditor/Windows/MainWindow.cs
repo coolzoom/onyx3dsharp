@@ -1,5 +1,6 @@
 ﻿using Onyx3D;
 using OpenTK;
+using OpenTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -616,12 +617,26 @@ namespace Onyx3DEditor
                 //the material shader color is from 0 to 1 but our conversion H is using 0 to 255
                 //so we need to convert the range back and force
                 //but remeber our l and s are from 0 to 1
-				Vector4 color = HlsToRgb( new Vector4(colorvalue * 255, 0.5f, 0.9f, 0.9f)); //transparency
-                                                                                                              //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
-                color.X = color.X / 255;
-                color.Y = color.Y / 255;
-                color.Z = color.Z / 255;
                 
+
+                //Vector4 color = HlsToRgb( new Vector4(colorvalue * 255, 0.5f, 0.9f, 0.9f)); //transparency
+                //                                                                                              //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+                //color.X = color.X / 255;
+                //color.Y = color.Y / 255;
+                //color.Z = color.Z / 255;
+
+
+                //build in HSL/HSV to RGB
+                //https://zhuanlan.zhihu.com/p/158700586
+                var c = Color4.FromHsl(new Vector4(colorvalue, 1f, 0.5f, 0.9f));
+                Vector4 color = new Vector4();//  HlsToRgb( new Vector4(colorvalue * 255, 0.5f, 0.9f, 0.9f)); //transparency
+                                              //EditorSceneObjectUtils.AddReflectionProbe(pos, size);
+                color.X = c.R;
+                color.Y = c.G;
+                color.Z = c.B;
+                color.W = c.A;
+
+
                 //EditorSceneObjectUtils.AddCircle("Point" + i.ToString(), posCorrect, 0.1f, col, up, 100);
                 EditorSceneObjectUtils.AddPrimitive(BuiltInMesh.Sphere, "Point" + a.ToString(), posCorrect, sca, color, false);
 			}
